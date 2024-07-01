@@ -32,21 +32,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('Create_Admin', [UserController::class, 'Create_Admin']);
-Route::get('getUserById/{id}', [UserController::class, 'getUserById']);
-Route::get('getUsersByRole/{role}', [UserController::class, 'getUsersByRole']);
-Route::get('GetAllUsers', [UserController::class, 'GetAllUsers']);
+Route::post('Create_Admin', [UserController::class, 'Create_Admin']); // It works
+Route::get('getUserById/{id}', [UserController::class, 'getUserById']); // it works 
+Route::get('getUsersByRole/{role}', [UserController::class, 'getUsersByRole']); //it works
+Route::get('GetAllUsers', [UserController::class, 'GetAllUsers']); // It works
 
 
-Route::post('create_client', [ClientController::class, 'create_client']);
-Route::get('getClientByUserId/{user_id}', [ClientController::class, 'getClientByUserId']);
-Route::get('getClientById/{id}', [ClientController::class, 'getClientById']);
-Route::get('getAllClients', [ClientController::class, 'getAllClients']);
+Route::post('create_client', [ClientController::class, 'create_client']); //it works
+Route::get('getClientByUserId/{user_id}', [ClientController::class, 'getClientByUserId']); //it works
+Route::get('getClientById/{id}', [ClientController::class, 'getClientById']);//it works
+Route::get('getAllClients', [ClientController::class, 'getAllClients']);//it works
 
 
 
 
-Route::post('CreateArtisan', [ArtisanController::class, 'create_artisan']);
+Route::post('CreateArtisan', [ArtisanController::class, 'create_artisan']); 
 Route::get('getAllArtisans', [ArtisanController::class, 'getAllArtisans']);
 Route::get('getArtisanById/{id}', [ArtisanController::class, 'getArtisanById']);
 Route::get('getArtisanByUserId/{userId}', [ArtisanController::class, 'getArtisanByUserId']);
@@ -72,6 +72,10 @@ Route::get('getCommandesByArtisanServiceId/{artisanServiceId}', [CommandeControl
 
 
 
-Route::post('artisan-ratings', [RatingController::class, 'store']);
-Route::post('/client-ratings', [RatingController::class, 'store']);
+Route::post('CreateArtisanRating', [RatingController::class, 'CreateArtisanRating']);
+Route::post('CreateClientRating', [RatingController::class, 'CreateClientRating']);
 //25
+
+
+
+

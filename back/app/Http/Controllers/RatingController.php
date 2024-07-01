@@ -25,8 +25,8 @@ class RatingController extends Controller
     }
 
 
-    
-    public function store(Request $request)
+
+    public function CreateClientRating(Request $request)
     {
         $validatedData = $request->validate([
             'client_id' => 'required|exists:clients,id',
