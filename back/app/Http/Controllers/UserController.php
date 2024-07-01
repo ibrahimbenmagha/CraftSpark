@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function Create_client(Request $request)
+    public function Create_Admin(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',

@@ -28,7 +28,7 @@ use App\Http\Controllers\ServiceController;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::post('/CreateAdmin', [UserController::class, 'create_client']);
+Route::post('/CreateAdmin', [UserController::class, 'Create_Admin']);
 Route::post('/CreatClient', [ClientController::class, 'create_client']);
 Route::post('/CreateArtisan', [ArtisanController::class, 'create_artisan']);
 Route::post('/create_service', [ServiceController::class, 'create_service']);
