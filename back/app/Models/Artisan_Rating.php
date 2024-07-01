@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ArtisanRating extends Model
+class Artisan_Rating extends Model
 {
     use HasFactory;
 

@@ -30,4 +30,41 @@ class ArtisanController extends Controller
         return response()->json(['message' => 'Artisan created successfully', 'advertiser' => $advertiser], 201);
     }
 
+    public function getAllArtisans()
+    {
+        $artisans = Artisan::all();
+        return response()->json([
+            'artisans' => $artisans
+        ], 200);
+    }
+
+
+    public function getArtisanById($id)
+    {
+        $artisan = Artisan::find($id);
+
+        if (!$artisan) {
+            return response()->json([
+                'message' => 'Artisan not found'
+            ], 404);
+        }
+        return response()->json([
+            'artisan' => $artisan
+        ], 200);
+    }
+
+
+    public function getArtisanByUserId($userId)
+    {
+        $artisan = Artisan::where('user_id', $userId)->first();
+        if (!$artisan) {
+            return response()->json([
+                'message' => 'Artisan not found'
+            ], 404);
+        }
+        return response()->json([
+            'artisan' => $artisan
+        ], 200);
+    }
+
 }
