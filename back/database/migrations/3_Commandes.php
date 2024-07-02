@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('commandes', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('service_date');
+            $table->date('service_date');
             $table->float('total_price');
             $table->enum('status',['pending', 'in progress', 'completed']);
 

@@ -14,7 +14,10 @@ return new class extends Migration
         Schema::create('artisans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->references("id")->on("users");
+            $table->foreignId('service')->references("id")->on("services");
+
             $table->string('phone');
+            $table->string("Annedexperiance");
             $table->string('address');
             $table->timestamps();
         });
