@@ -30,12 +30,13 @@ use App\Http\Controllers\RatingController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+    
 
 
 Route::post('Create_Admin', [UserController::class, 'Create_Admin']); // It works
 Route::get('getUserById/{id}', [UserController::class, 'getUserById']); // it works 
 Route::get('getUsersByRole/{role}', [UserController::class, 'getUsersByRole']); //it works
-Route::get('GetAllUsers', [UserController::class, 'GetAllUsers']); // It works
+Route::get('GetAllUsers', [UserController::class, 'GetAllUsers']); // It works 
 
 
 Route::post('create_client', [ClientController::class, 'create_client']); //it works
@@ -46,7 +47,7 @@ Route::get('getAllClients', [ClientController::class, 'getAllClients']);//it wor
 
 
 
-Route::post('CreateArtisan', [ArtisanController::class, 'create_artisan']); 
+Route::post('create_artisan', [ArtisanController::class, 'create_artisan']); 
 Route::get('getAllArtisans', [ArtisanController::class, 'getAllArtisans']);
 Route::get('getArtisanById/{id}', [ArtisanController::class, 'getArtisanById']);
 Route::get('getArtisanByUserId/{userId}', [ArtisanController::class, 'getArtisanByUserId']);
