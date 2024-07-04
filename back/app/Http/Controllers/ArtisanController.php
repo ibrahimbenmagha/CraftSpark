@@ -6,32 +6,32 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Artisan;
-
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 
 
 class ArtisanController extends Controller
 {
-    public function create_artisan(Request $request)
-    {
-        $user = User::create([
-            'name' => $request->input('name'),
-            'phone' => $request->input('phone'),
-            'email' => $request->input('email'),
-            'address' => $request->input('address'),
-            'password' => bcrypt($request->input('password')),
-            'role' => 'artisan', 
-        ]);
+    // public function create_artisan(Request $request)
+    // {
+    //     $user = User::create([
+    //         'name' => $request->input('name'),
+    //         'phone' => $request->input('phone'),
+    //         'email' => $request->input('email'),
+    //         'address' => $request->input('address'),
+    //         'password' => bcrypt($request->input('password')),
+    //         'role' => 'artisan', 
+    //     ]);
 
-        $advertiser = Artisan::create([
-            'phone' => $request->input('phone'),
-            'user_id' => $user->id,
-            'address' => $request->input('address'),
-        ]);
+    //     $advertiser = Artisan::create([
+    //         'phone' => $request->input('phone'),
+    //         'user_id' => $user->id,
+    //         'address' => $request->input('address'),
+    //     ]);
 
-        return response()->json(['message' => 'Artisan created successfully', 'advertiser' => $advertiser], 201);
-    }
+    //     return response()->json(['message' => 'Artisan created successfully', 'advertiser' => $advertiser], 201);
+    // }
 
     public function getAllArtisans()
     {
@@ -72,34 +72,50 @@ class ArtisanController extends Controller
 
 
 
-    public function create_client(Request $request)
-    {
+    public function create_artisan(Request $request)
+    {                
+        // Start the transaction
         DB::beginTransaction();
         
         try {
-            $user = User::create([
-                'name' => $request->input('name'),
-                'phone' => $request->input('phone'),
-                'email' => $request->input('email'),
-                'password' => bcrypt($request->input('password')),
-                'role' => 'client',
-            ]);
+            // Check if the email already exists
+            if (User::where('email', $request->input('email'))->exists()) {
+                return response()->json([
+                    'message' => 'The email already exists'
+                ], 409); // 409 Conflict
+            }
     
-            $client = Artisan::create([
-                'phone' => $request->input('phone'),
-                'user_id' => $user->id,
-                'address' => $request->input('address'),
-            ]);
+            // Create a new user
+           
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->date_naissance = $request->date_naissance;
+            $user->role = "artisan"; // automatically added
+            $user->save();
     
+            $artisan = new Artisan();
+            $artisan->phone = $request->phone;
+            $artisan->address = $request->address;
+            $artisan->user_id = $user->id;
+            $artisan->save();
             DB::commit();
-            
-            return response()->json(['message' => 'Client created successfully', 'client' => $client], 201);
+            return response()->json([
+                'message' => 'Artisan created successfully',
+                'artisan' => $artisan
+            ], 201);
         } catch (\Exception $e) {
+            // Rollback the transaction
             DB::rollBack();
             
-            return response()->json(['message' => 'Failed to create client', 'error' => $e->getMessage()], 500);
+            return response()->json([
+                'message' => 'Failed to create artisan',
+                'error' => $e->getMessage()
+            ], 500);
         }
     }
+    
 
 
 

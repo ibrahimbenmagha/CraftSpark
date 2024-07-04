@@ -37,6 +37,7 @@ Route::post('Create_Admin', [UserController::class, 'Create_Admin']); // It work
 Route::get('getUserById/{id}', [UserController::class, 'getUserById']); // it works 
 Route::get('getUsersByRole/{role}', [UserController::class, 'getUsersByRole']); //it works
 Route::get('GetAllUsers', [UserController::class, 'GetAllUsers']); // It works 
+Route::delete('deleteUser/{id}', [UserController::class, 'deleteUser']);
 
 
 Route::post('create_client', [ClientController::class, 'create_client']); //it works

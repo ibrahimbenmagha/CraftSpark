@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Client;
+use App\Models\Artisan;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -13,13 +15,20 @@ use Illuminate\Support\Facades\Hash;
         public function Create_Admin(Request $request)
         {
             try {
+                if (User::where('email', $request->email)->exists()) {
+                    return response()->json([
+                        'message' => 'The email already exists'
+                    ], 409); 
+                }
+        
                 $user = new User();
                 $user->name = $request->name;
                 $user->email = $request->email;
                 $user->password = Hash::make($request->password);
-                $user->role = "admin"; // automatically added 
+                $user->date_naissance = $request->date_naissance;
+                $user->role = "admin"; // automatically added
                 $user->save();
-                
+        
                 return response()->json([
                     'message' => 'User created successfully',
                     'user' => $user
@@ -38,11 +47,8 @@ use Illuminate\Support\Facades\Hash;
 
     public function GetAllUsers()
     {
-        // Retrieve all users
         $users = User::all();
-
-        // Return the users in a JSON response
-        return response()->json([
+            return response()->json([
             'users' => $users
         ], 200);
     }
@@ -64,7 +70,6 @@ use Illuminate\Support\Facades\Hash;
 
     public function getUsersByRole($role)
     {
-        // Validate the role parameter to be either 'client' or 'artisan'
         if (!in_array($role, ['client', 'artisan', 'admin'])) {
             return response()->json([
                 'message' => 'Invalid role provided'
@@ -79,7 +84,25 @@ use Illuminate\Support\Facades\Hash;
 
 
 
+    public function deleteUser($id)
+    {
+        $user = User::find($id);
 
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+        $client = Client::where('user_id', $id)->first();
+        if ($client) {
+            $client->delete();
+        }
+        $artisan = Artisan::where('user_id', $id)->first();
+        if ($artisan) {
+            $artisan->delete();
+        }
+        $user->delete();
+
+        return response()->json(['message' => 'User and associated records deleted successfully'], 200);
+    }
   
 
 }

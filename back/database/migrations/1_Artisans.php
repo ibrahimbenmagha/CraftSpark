@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('service')->references("id")->on("services");
 
             $table->string('phone');
-            $table->string("Annedexperiance");
+            $table->string("Annes_experiances");
             $table->string('address');
             $table->timestamps();
         });

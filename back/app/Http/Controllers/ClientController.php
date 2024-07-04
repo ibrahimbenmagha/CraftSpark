@@ -7,41 +7,62 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Client;
+use Illuminate\Support\Facades\Hash;
 
 
 class ClientController extends Controller
 {
 
-
     public function create_client(Request $request)
-    {
-        DB::beginTransaction();
-        
-        try {
-            $user = User::create([
-                'name' => $request->input('name'),
-                'phone' => $request->input('phone'),
-                'email' => $request->input('email'),
-                'password' => bcrypt($request->input('password')),
-                'role' => 'client',
-            ]);
+{                
+    // Start the transaction
+    DB::beginTransaction();
     
-            $client = Client::create([
-                'phone' => $request->input('phone'),
-                'user_id' => $user->id,
-                'address' => $request->input('address'),
-            ]);
-    
-            DB::commit();
-            
-            return response()->json(['message' => 'Client created successfully', 'client' => $client], 201);
-        } catch (\Exception $e) {
-            DB::rollBack();
-            
-            return response()->json(['message' => 'Failed to create client', 'error' => $e->getMessage()], 500);
+    try {
+        // Check if the email already exists
+        if (User::where('email', $request->input('email'))->exists()) {
+            return response()->json([
+                'message' => 'The email already exists'
+            ], 409); // 409 Conflict
         }
+
+        // Create a new user
+       
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->date_naissance = $request->date_naissance;
+        $user->role = "client"; // automatically added
+        $user->save();
+
+        
+        $client = new Client();
+        $client->phone = $request->phone;
+        $client->address = $request->address;
+        $client->user_id = $user->id;
+        $client->save();
+
+        // Commit the transaction
+        DB::commit();
+        
+        return response()->json([
+            'message' => 'Client created successfully',
+            'client' => $client
+        ], 201);
+    } catch (\Exception $e) {
+        // Rollback the transaction
+        DB::rollBack();
+        
+        return response()->json([
+            'message' => 'Failed to create client',
+            'error' => $e->getMessage()
+        ], 500);
     }
-    
+}
+
+
+
 
         public function getAllClients()
         {
