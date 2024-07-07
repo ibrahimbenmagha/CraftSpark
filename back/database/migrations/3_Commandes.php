@@ -19,7 +19,7 @@ return new class extends Migration
 
             $table->foreignId('client_id')->references('id')->on('clients');
             $table->foreignId('artisan_id')->references('id')->on('artisans');
-            $table->foreignId('artisan_service_id')->references('id')->on('service_artisan');
+            $table->foreignId('artisan_service_id')->references('id')->on('services_artisans');
             $table->timestamps();
         });
     }

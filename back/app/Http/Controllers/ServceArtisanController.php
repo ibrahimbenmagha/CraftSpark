@@ -12,17 +12,15 @@ use App\Models\Artisan;
 class ServceArtisanController extends Controller
 {
     
-    public function CreateServceArtisan(Request $request)
+    public function createServiceArtisan(Request $request)
     {
-        // Validate the request
-        $request->validate([
-            'artisan_id' => 'required|exists:artisans,id',
-            'service_id' => 'required|exists:services,id',
-        ]);
         $serviceArtisan = new Service_Artisan();
-        $serviceArtisan->artisan_id = $request->input('artisan_id');
-        $serviceArtisan->service_id = $request->input('service_id');
+        // $serviceArtisan->artisan_id = $request->input('artisan_id');
+        // $serviceArtisan->service_id = $request->input('service_id');
+        $serviceArtisan->artisan_id = $request->artisan_id;
+        $serviceArtisan->service_id = $request->service_id;
         $serviceArtisan->save();
+    
         return response()->json([
             'service_artisan' => $serviceArtisan,
             'message' => 'Service added to artisan successfully'
@@ -51,6 +49,13 @@ class ServceArtisanController extends Controller
         ]);
     }
 
+
+    public function getServceArtisanByArtisanId($artisanId)
+    {
+        $services = Service_Artisan::where('artisan_id', $artisanId)->get();
+
+        return response()->json(['services' => $services], 200);
+    }
 
     
 

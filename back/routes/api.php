@@ -9,6 +9,8 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\ServceArtisanController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\AuthController;
+
 
 
 
@@ -48,7 +50,7 @@ Route::get('getAllClients', [ClientController::class, 'getAllClients']);//it wor
 
 
 
-Route::post('create_artisan', [ArtisanController::class, 'create_artisan']); 
+Route::post('create_artisan', [ArtisanController::class, 'create_artisan']); //it works
 Route::get('getAllArtisans', [ArtisanController::class, 'getAllArtisans']);
 Route::get('getArtisanById/{id}', [ArtisanController::class, 'getArtisanById']);
 Route::get('getArtisanByUserId/{userId}', [ArtisanController::class, 'getArtisanByUserId']);
@@ -61,9 +63,10 @@ Route::get('getServiceById/{id}', [ServiceController::class, 'getServiceById']);
 
 
 
-Route::post('CreateServceArtisan', [ServceArtisanController::class, 'CreateServceArtisan']);
+Route::post('createServiceArtisan', [ServceArtisanController::class, 'createServiceArtisan']);
 Route::get('getAllServceArtisan', [ServceArtisanController::class, 'getAllServceArtisan']);
 Route::get('getServceArtisanById/{id}', [ServceArtisanController::class, 'getServceArtisanById']);
+Route::get('getServceArtisanByArtisanId/{artisan_id}', [ServceArtisanController::class, 'getServceArtisanByArtisanId']);
 
 
 Route::post('CreateCommande', [CommandeController::class, 'CreateCommande']);

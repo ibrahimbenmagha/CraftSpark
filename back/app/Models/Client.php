@@ -20,7 +20,7 @@ class Client extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, "user_id");
     }
 
     /**
@@ -36,7 +36,7 @@ class Client extends Model
      */
     public function ratings()
     {
-        return $this->hasMany(ClientRating::class);
+        return $this->hasMany(Client_Rating::class);
     }
 
     /**
