@@ -5,7 +5,6 @@ import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import LoginForm from "./components/Login/LoginForm";
 import SignUpForm from "./components/SingnUp/SignUpForm";
 import HomePage from "./components/Homepage/Homepage";
-import DsipayArtisan from "./components/Artisan/DsipayArtisan";
 import Backoffice from "./components/Backoffice/Backoffice";
 import Artisans from "./components/Backoffice/Artisans/Artisans.js";
 import "./App.css";

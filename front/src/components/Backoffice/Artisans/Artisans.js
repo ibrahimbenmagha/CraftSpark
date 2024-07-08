@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Space, Table, Button } from 'antd';
+import { Space, Table, Button, Modal, message } from 'antd';
 import axiosInstance from '../../../AxiosConfig'; // Assurez-vous d'importer correctement votre instance Axios
 
-const { Column, ColumnGroup } = Table;
+const { Column } = Table;
+const { confirm } = Modal;
 
-const App = () => {
+const Artisan = () => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     fetchArtisans();
   }, []);
 
-  const fetchArtisans = async () => {
+  const  fetchArtisans= async () => {
     try {
       const response = await axiosInstance.get('getAllArtisans');
       const artisans = response.data.artisans;
@@ -21,6 +22,28 @@ const App = () => {
     }
   };
 
+  const handleDelete = (id) => {
+    confirm({
+      title: 'Êtes-vous sûr de vouloir supprimer cet artisan ?',
+      content: 'Cette action est irréversible.',
+      okText: 'Oui',
+      okType: 'danger',
+      cancelText: 'Non',
+      onOk: async () => {
+        try {
+          await axiosInstance.delete(`deleteArtisan/${id}`);
+          message.success('Artisan supprimé avec succès');
+          fetchArtisans(); 
+        } catch (error) {
+          console.error('Erreur lors de la suppression de l\'artisan :', error);
+          message.error('Échec de la suppression de l\'artisan');
+        }
+      },
+      onCancel() {
+        console.log('Suppression annulée');
+      },
+    });
+  };
 
   return (
     <div>
@@ -34,10 +57,10 @@ const App = () => {
         <Column
           title="Action"
           key="action"
-          render={() => (
+          render={(record) => (
             <Space size="middle">
               <Button type="primary">Modifier</Button>
-              <Button type="danger">Supprimer</Button>
+              <Button type="danger" onClick={() => handleDelete(record.id)}>Supprimer</Button>
             </Space>
           )}
         />
@@ -46,4 +69,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Artisan;

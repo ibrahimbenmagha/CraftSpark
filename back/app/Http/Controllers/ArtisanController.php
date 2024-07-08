@@ -67,16 +67,6 @@ class ArtisanController extends Controller
         }
     }
 
-
-    // public function getAllArtisans()
-    // {
-    //     $artisans = Artisan::all();
-    //     return response()->json([
-    //         'artisans' => $artisans
-    //     ], 200);
-    // }
-
-
     public function getAllArtisans()
     {
         $artisans = Artisan::join('users', 'artisans.user_id', '=', 'users.id')
@@ -98,8 +88,6 @@ class ArtisanController extends Controller
         ], 200);
     }
 
-
-
     public function getArtisanById($id)
     {
         $artisan = Artisan::find($id);
@@ -114,7 +102,6 @@ class ArtisanController extends Controller
         ], 200);
     }
 
-
     public function getArtisanByUserId($userId)
     {
         $artisan = Artisan::where('user_id', $userId)->first();
@@ -128,7 +115,6 @@ class ArtisanController extends Controller
         ], 200);
     }
 
-
     public function getArtisansByServiceId($serviceId)
     {
         $artisans = Artisan::where('service', $serviceId)->get();
@@ -137,24 +123,29 @@ class ArtisanController extends Controller
         return response()->json($artisans);
     }
 
-
     public function deleteArtisan($id)
     {
         try {
             DB::beginTransaction();
-
-            // Delete artisan's ratings
+            $artisan = Artisan::find($id);
+            if (!$artisan) {
+                return response()->json(['message' => 'Artisan non trouvé'], 404);
+            }
             DB::table('artisan_ratings')->where('artisan_id', $id)->delete();
             DB::table('commandes')->where('artisan_id', $id)->delete();
             DB::table('chats')->where('artisan_id', $id)->delete();
             DB::table('services_artisans')->where('artisan_id', $id)->delete();
-            Artisan::findOrFail($id)->delete();
+
+            $userId = $artisan->user_id;
+            $artisan->delete();
+
+            User::findOrFail($userId)->delete();
             DB::commit();
-            return response()->json(['message' => 'Artisan deleted successfully']);
+
+            return response()->json(['message' => 'Artisan et utilisateur associé supprimés avec succès'], 200);
         } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(['message' => 'Failed to delete artisan'], 500);
+            return response()->json(['message' => 'Erreur lors de la suppression de l\'artisan et de l\'utilisateur associé', 'error' => $e->getMessage()], 500);
         }
     }
-
 }

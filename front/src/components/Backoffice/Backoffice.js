@@ -27,7 +27,7 @@ const App = () => {
               <Link to="Artisans" className="Artisans">Artisans</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<LoadingOutlined />} >
-              <Link to="PendingSchoolsAdmin">Pending Schools</Link>
+              <Link to="/">Pending Schools</Link>
             </Menu.Item>
             <Menu.Item key="3" icon={<AppstoreAddOutlined />} >
               <Link to="CreateSchoolAdmin" className='CreateSchool'>Add School</Link>
