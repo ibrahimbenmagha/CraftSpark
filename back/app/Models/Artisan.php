@@ -11,47 +11,41 @@ class Artisan extends Model
 
     protected $fillable = [
         'user_id',
+        'service',
         'phone',
-        'address',
+        'Annes_experiances',
+        'address'
     ];
 
-    /**
-     * Get the user that owns the artisan.
-     */
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /**
-     * Get the services provided by the artisan.
-     */
-    public function services()
+    public function service()
     {
-        return $this->belongsToMany(Service::class, 'service_artisan');
+        return $this->belongsTo(Service::class);
     }
 
-    /**
-     * Get the orders associated with the artisan.
-     */
-    public function orders()
+    public function ratings()
+    {
+        return $this->hasMany(Artisan_Rating::class);
+    }
+
+    public function services()
+    {
+        return $this->belongsToMany(Service::class, 'services_artisans');
+    }
+
+    public function commandes()
     {
         return $this->hasMany(Commande::class);
     }
 
-    /**
-     * Get the ratings for the artisan.
-     */
-    public function ratings()
-    {
-        return $this->hasMany(ArtisanRating::class);
-    }
-
-    /**
-     * Get the chats associated with the artisan.
-     */
     public function chats()
     {
         return $this->hasMany(Chat::class);
     }
+
+
 }

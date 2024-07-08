@@ -1,0 +1,35 @@
+/* Sider should take the entire height of the viewport and be fixed on the left */
+.siderAdmin {
+    height: 100vh;
+    position: fixed;
+    left: 0;
+  }
+  
+  /* Adjust the layout when the sider is collapsed */
+  .layout-content {
+    margin-left: 200px;
+  }
+  
+  .layout-content.collapsed {
+    margin-left: 80px;
+  }
+  
+  /* Ensure the header is fixed at the top */
+  .layout-header {
+    padding: 0;
+    background: var(--colorBgContainer);
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+  }
+  
+  .layout-content-inner {
+    margin: 24px 16px;
+    padding: 24px;
+    margin-top: 64px; 
+    min-height: 280px;
+
+    min-Height: 280;
+  }
+
+

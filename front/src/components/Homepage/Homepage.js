@@ -5,6 +5,8 @@ function HomePage() {
   return (
     <div className="App">
         <Link to="/login">Login</Link>
+        <Link to="/DisplayArtisan">DisplayArtisan</Link>
+
       </div>
 
   );

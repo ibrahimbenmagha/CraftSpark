@@ -6,12 +6,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ArtisanController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\ServceArtisanController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\AuthController;
-
-
+use App\Http\Controllers\ServceArtisanController;
 
 
 
@@ -42,18 +40,20 @@ Route::get('GetAllUsers', [UserController::class, 'GetAllUsers']); // It works
 Route::delete('deleteUser/{id}', [UserController::class, 'deleteUser']);
 
 
-Route::post('create_client', [ClientController::class, 'create_client']); //it works
-Route::get('getClientByUserId/{user_id}', [ClientController::class, 'getClientByUserId']); //it works
-Route::get('getClientById/{id}', [ClientController::class, 'getClientById']);//it works
-Route::get('getAllClients', [ClientController::class, 'getAllClients']);//it works
+Route::post('create_client',[ClientController::class,'create_client']); //it works
+Route::get('getClientByUserId/{user_id}',[ClientController::class,'getClientByUserId']); //it works
+Route::get('getClientById/{id}',[ClientController::class,'getClientById']);//it works
+Route::get('getAllClients',[ClientController::class,'getAllClients']);//it works
 
 
 
 
-Route::post('create_artisan', [ArtisanController::class, 'create_artisan']); //it works
-Route::get('getAllArtisans', [ArtisanController::class, 'getAllArtisans']);
-Route::get('getArtisanById/{id}', [ArtisanController::class, 'getArtisanById']);
-Route::get('getArtisanByUserId/{userId}', [ArtisanController::class, 'getArtisanByUserId']);
+Route::post('create_artisan',[ArtisanController::class,'create_artisan']); //it works
+Route::get('getAllArtisans',[ArtisanController::class,'getAllArtisans']);
+Route::get('getArtisanById/{id}',[ArtisanController::class,'getArtisanById']);
+Route::get('getArtisanByUserId/{userId}',[ArtisanController::class,'getArtisanByUserId']);
+Route::get('getArtisansByServiceId/{serviceId}',[ArtisanController::class,'getArtisansByServiceId']);
+Route::delete('/deleteArtisan/{id}', [ArtisanController::class, 'deleteArtisan']);
 
 
 
@@ -63,10 +63,10 @@ Route::get('getServiceById/{id}', [ServiceController::class, 'getServiceById']);
 
 
 
-Route::post('createServiceArtisan', [ServceArtisanController::class, 'createServiceArtisan']);
-Route::get('getAllServceArtisan', [ServceArtisanController::class, 'getAllServceArtisan']);
-Route::get('getServceArtisanById/{id}', [ServceArtisanController::class, 'getServceArtisanById']);
-Route::get('getServceArtisanByArtisanId/{artisan_id}', [ServceArtisanController::class, 'getServceArtisanByArtisanId']);
+// Route::post('createServiceArtisan', [ServceArtisanController::class, 'createServiceArtisan']);
+// Route::get('getAllServceArtisan', [ServceArtisanController::class, 'getAllServceArtisan']);
+// Route::get('getServceArtisanById/{id}', [ServceArtisanController::class, 'getServceArtisanById']);
+// Route::get('getServceArtisanByArtisanId/{artisan_id}', [ServceArtisanController::class, 'getServceArtisanByArtisanId']);
 
 
 Route::post('CreateCommande', [CommandeController::class, 'CreateCommande']);

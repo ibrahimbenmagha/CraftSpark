@@ -18,6 +18,6 @@ class Service extends Model
      */
     public function artisans()
     {
-        return $this->belongsToMany(Artisan::class, 'service_artisan');
+        return $this->hasMany(Artisan::class);
     }
 }
