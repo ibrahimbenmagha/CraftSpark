@@ -1,0 +1,19 @@
+aside {
+    width: 200px;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+  }
+  
+  aside h2 {
+    margin-bottom: 20px;
+  }
+  
+  aside ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  aside ul li {
+    margin-bottom: 10px;
+  }
+  

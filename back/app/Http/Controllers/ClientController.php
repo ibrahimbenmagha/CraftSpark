@@ -15,19 +15,14 @@ class ClientController extends Controller
 
     public function create_client(Request $request)
 {                
-    // Start the transaction
     DB::beginTransaction();
     
     try {
-        // Check if the email already exists
         if (User::where('email', $request->input('email'))->exists()) {
             return response()->json([
                 'message' => 'The email already exists'
-            ], 409); // 409 Conflict
+            ], 409);
         }
-
-        // Create a new user
-       
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -35,15 +30,11 @@ class ClientController extends Controller
         $user->date_naissance = $request->date_naissance;
         $user->role = "client"; // automatically added
         $user->save();
-
-        
         $client = new Client();
         $client->phone = $request->phone;
         $client->address = $request->address;
         $client->user_id = $user->id;
         $client->save();
-
-        // Commit the transaction
         DB::commit();
         
         return response()->json([

@@ -50,6 +50,7 @@ Route::get('getAllClients',[ClientController::class,'getAllClients']);//it works
 
 Route::post('create_artisan',[ArtisanController::class,'create_artisan']); //it works
 Route::get('getAllArtisans',[ArtisanController::class,'getAllArtisans']);
+Route::get('getAllArtisansInfo',[ArtisanController::class,'getAllArtisansInfo']);
 Route::get('getArtisanById/{id}',[ArtisanController::class,'getArtisanById']);
 Route::get('getArtisanByUserId/{userId}',[ArtisanController::class,'getArtisanByUserId']);
 Route::get('getArtisansByServiceId/{serviceId}',[ArtisanController::class,'getArtisansByServiceId']);

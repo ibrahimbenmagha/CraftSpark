@@ -13,8 +13,7 @@ const App = () => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
-  return (
-    <Layout style={{ minHeight: '100vh' }}>
+  return (    <Layout style={{ minHeight: '100vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed} className='siderAdmin' style={{ height: '100vh', position: 'fixed', left: 0 }}>
         <div className="demo-logo-vertical" />
         <img src={Logo} width={"90%"} alt="Logo" />

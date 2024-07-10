@@ -88,6 +88,26 @@ class ArtisanController extends Controller
         ], 200);
     }
 
+
+    public function getAllArtisansInfo()
+    {
+        try {
+            // Récupérer tous les artisans avec les informations utilisateur associées
+            $artisans = Artisan::with('user')->get();
+
+            return response()->json([
+                'success' => true,
+                'artisans' => $artisans
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Erreur lors de la récupération des artisans',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
     public function getArtisanById($id)
     {
         $artisan = Artisan::find($id);
