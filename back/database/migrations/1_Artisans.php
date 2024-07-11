@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->references("id")->on("users");
             $table->foreignId('service')->references("id")->on("services");
-
             $table->string('phone');
             $table->string("Annes_experiances");
+            $table->string('photo')->nullable(); 
+            $table->text('description')->nullable();
             $table->string('address');
             $table->timestamps();
         });
