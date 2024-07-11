@@ -19,27 +19,92 @@ class ArtisanController extends Controller
 {
 
 
+    // public function create_artisan(Request $request)
+    // {
+    //     DB::beginTransaction();
+
+    //     try {
+    //         if (User::where('email', $request->input('email'))->exists()) {
+    //             return response()->json([
+    //                 'message' => 'The email already exists'
+    //             ], 409);
+    //         }
+    //         $request->validate([
+    //             'name' => 'required|string|max:255',
+    //             'email' => 'required|string|email|max:255',
+    //             'password' => 'required|string|min:8',
+    //             'date_naissance' => 'required|date',
+    //             'phone' => 'required|string|max:20',
+    //             'address' => 'required|string|max:255',
+    //             'service' => 'required|integer|exists:services,id',
+    //             'Annes_experiances' => 'required|integer|min:0',
+    //             'description' => 'nullable|string',
+    //             'photo' => 'nullable|string'
+    //         ]);
+    //         $user = new User();
+    //         $user->name = $request->name;
+    //         $user->email = $request->email;
+    //         $user->password = Hash::make($request->password);
+    //         $user->date_naissance = $request->date_naissance;
+    //         $user->role = "artisan"; // automatically added
+    //         $user->save();
+
+    //         $artisan = new Artisan();
+    //         $artisan->phone = $request->phone;
+    //         $artisan->address = $request->address;
+    //         $artisan->service = $request->service;
+    //         $artisan->Annes_experiances = $request->Annes_experiances;
+    //         $artisan->description = $request->description;
+    //         $artisan->photo = $request->photo;
+    //         $artisan->user_id = $user->id;
+    //         $artisan->save();
+
+    //         DB::commit();
+    //         return response()->json([
+    //             'message' => 'Artisan created successfully',
+    //             'artisan' => $artisan
+    //         ], 201);
+    //     } catch (\Exception $e) {
+
+    //         DB::rollBack();
+
+    //         return response()->json([
+    //             'message' => 'Failed to create artisan',
+    //             'error' => $e->getMessage()
+    //         ], 500);
+    //     }
+    // }
+
     public function create_artisan(Request $request)
     {
-        // Start the transaction
         DB::beginTransaction();
 
         try {
-            // Check if the email already exists
             if (User::where('email', $request->input('email'))->exists()) {
                 return response()->json([
                     'message' => 'The email already exists'
-                ], 409); // 409 Conflict
+                ], 409);
             }
 
-            // Create a new user
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'password' => 'required|string|min:8',
+                'date_naissance' => 'required|date',
+                'phone' => 'required|string|max:20',
+                'address' => 'required|string|max:255',
+                'service' => 'required|integer|exists:services,id',
+                'Annes_experiances' => 'required|integer|min:0',
+                'description' => 'nullable|string',
+                'image' => 'nullable|file|mimes:jpg,png|max:2048' // validation du fichier image
+            ]);
 
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
             $user->date_naissance = $request->date_naissance;
-            $user->role = "artisan"; // automatically added
+            $user->role = "artisan"; // automatiquement ajouté
             $user->save();
 
             $artisan = new Artisan();
@@ -47,25 +112,31 @@ class ArtisanController extends Controller
             $artisan->address = $request->address;
             $artisan->service = $request->service;
             $artisan->Annes_experiances = $request->Annes_experiances;
+            $artisan->description = $request->description;
 
+            // Conversion de l'image en base64
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $artisan->photo = base64_encode(file_get_contents($image->getRealPath()));
+            }
 
             $artisan->user_id = $user->id;
             $artisan->save();
+
             DB::commit();
             return response()->json([
                 'message' => 'Artisan created successfully',
                 'artisan' => $artisan
             ], 201);
         } catch (\Exception $e) {
-            // Rollback the transaction
             DB::rollBack();
-
             return response()->json([
                 'message' => 'Failed to create artisan',
                 'error' => $e->getMessage()
             ], 500);
         }
     }
+
 
     public function getAllArtisans()
     {
@@ -107,6 +178,59 @@ class ArtisanController extends Controller
             ], 500);
         }
     }
+
+
+
+
+    public function getArtisansWithAllInfos()
+    {
+        try {
+            $artisans = Artisan::leftJoin('artisan_ratings', 'artisans.id', '=', 'artisan_ratings.artisan_id')
+                ->join('users', 'artisans.user_id', '=', 'users.id')
+                ->join('services', 'artisans.service', '=', 'services.id')
+                ->select(
+                    'artisans.id',
+                    'artisans.user_id',
+                    'artisans.phone',
+                    'artisans.Annes_experiances',
+                    'artisans.photo as artisan_photo',
+                    'artisans.description',
+                    'artisans.address',
+                    'users.name as user_name',
+                    'users.email as user_email',
+                    'users.date_naissance as user_date_naissance',
+                    'services.name as service_name',
+                    DB::raw('AVG(artisan_ratings.rating) as average_rating')
+                )
+                ->groupBy(
+                    'artisans.id',
+                    'artisans.user_id',
+                    'artisans.phone',
+                    'artisans.Annes_experiances',
+                    'artisans.photo',
+                    'artisans.description',
+                    'artisans.address',
+                    'users.name',
+                    'users.email',
+                    'users.date_naissance',
+                    'services.name'
+                )
+                ->get();
+
+            return response()->json([
+                'message' => 'Artisans retrieved successfully',
+                'artisans' => $artisans
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to retrieve artisans',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+
 
     public function getArtisanById($id)
     {

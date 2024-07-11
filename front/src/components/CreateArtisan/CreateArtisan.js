@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import './CreateArtisan.css';
-import axiosInstance from '../../AxiosConfig';
 import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../AxiosConfig';
 import logo from '../../Photos/Logo1.png';
+import './CreateArtisan.css';
 
 const CreateArtisan = () => {
   const { register, handleSubmit, formState: { errors }, watch, setValue } = useForm();
@@ -17,14 +17,14 @@ const CreateArtisan = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axiosInstance.get('getAllServices'); 
-        setServicesList(response.data.services); 
+        const response = await axiosInstance.get('getAllServices');
+        setServicesList(response.data.services);
       } catch (error) {
         console.error('Error fetching services:', error);
       }
     };
     fetchServices();
-  }, []);  
+  }, []);
 
   const onSubmit = async (data) => {
     setLoading(true);
@@ -76,14 +76,14 @@ const CreateArtisan = () => {
                 <h2 className='form-title'>Compte Artisan</h2>
 
                 <div className="form-group">
-                  <label>Nom</label>
-                  <input type="text" {...register('name', { required: true })} />
+                  <label className="label">Nom</label>
+                  <input className="input" type="text" {...register('name', { required: true })} />
                   {errors.name && <span className='error'>This field is required</span>}
                 </div>
 
                 <div className="form-group">
-                  <label>Date de naissance</label>
-                  <input 
+                  <label className="label">Date de naissance</label>
+                  <input className="input" 
                     type="date" 
                     {...register('date_naissance', { 
                       required: true,
@@ -94,8 +94,8 @@ const CreateArtisan = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Téléphone</label>
-                  <input 
+                  <label className="label">Téléphone</label>
+                  <input className="input" 
                     type="tel" 
                     {...register('phone', { 
                       required: true,
@@ -109,8 +109,8 @@ const CreateArtisan = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Email</label>
-                  <input 
+                  <label className="label">Email</label>
+                  <input className="input" 
                     type="email" 
                     {...register('email', { 
                       required: true,
@@ -124,14 +124,14 @@ const CreateArtisan = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Adresse complète</label>
-                  <input type="text" {...register('address', { required: true })} />
+                  <label className="label">Adresse complète</label>
+                  <input className="input" type="text" {...register('address', { required: true })} />
                   {errors.address && <span className='error'>This field is required</span>}
                 </div>
 
                 <div className="form-group">
-                  <label>Services</label>
-                  <select {...register('service', { required: true })}>
+                  <label className="label">Services</label>
+                  <select className='select' {...register('service', { required: true })}>
                     <option value="">Sélectionnez un service</option>
                     {servicesList.map(service => (
                       <option key={service.id} value={service.id}>{service.name}</option>
@@ -141,8 +141,8 @@ const CreateArtisan = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Années d'expérience</label>
-                  <input 
+                  <label className="label">Années d'expérience</label>
+                  <input className="input" 
                     type="number" 
                     {...register('Annes_experiances', { 
                       required: true,
@@ -156,8 +156,8 @@ const CreateArtisan = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Description</label>
-                  <textarea 
+                  <label className="label">Description</label>
+                  <textarea  className='textarea'
                     {...register('description', { 
                       required: true,
                       maxLength: {
@@ -170,8 +170,8 @@ const CreateArtisan = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Upload Image (jpg or png)</label>
-                  <input 
+                  <label className="label">Upload Image (jpg or png)</label>
+                  <input className="input" 
                     type="file" 
                     {...register('image', { 
                       required: true,
@@ -185,8 +185,8 @@ const CreateArtisan = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Mot de passe</label>
-                  <input 
+                  <label className="label">Mot de passe</label>
+                  <input className="input" 
                     type="password" 
                     {...register('password', { 
                       required: true,
@@ -204,8 +204,8 @@ const CreateArtisan = () => {
                 </div>
 
                 <div className="form-group">
-                  <label>Confirmer le mot de passe</label>
-                  <input 
+                  <label className='label'>Confirmer le mot de passe</label>
+                  <input className="input" 
                     type="password" 
                     {...register('confirmPassword', { 
                       required: true,

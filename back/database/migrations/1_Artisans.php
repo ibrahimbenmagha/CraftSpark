@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('service')->references("id")->on("services");
             $table->string('phone');
             $table->string("Annes_experiances");
-            $table->string('photo')->nullable(); 
+            $table->longText('photo')->nullable();
             $table->text('description')->nullable();
             $table->string('address');
             $table->timestamps();

@@ -1,0 +1,13 @@
+.RegisterForm {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+form {
+  flex: 1;
+}
+h1 {
+  text-align: center;
+}
