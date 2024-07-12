@@ -25,14 +25,14 @@ const App = () => {
             <Menu.Item key="1" icon={<CheckOutlined />} >
               <Link to="Artisans" className="Artisans">Artisans</Link>
             </Menu.Item>
-            <Menu.Item key="2" icon={<LoadingOutlined />} >
-              <Link to="/">Pending Schools</Link>
+            <Menu.Item key="2" icon={<CheckOutlined />} >
+              <Link to="Clients">Clients</Link>
             </Menu.Item>
-            <Menu.Item key="3" icon={<AppstoreAddOutlined />} >
+            {/* <Menu.Item key="3" icon={<AppstoreAddOutlined />} >
               <Link to="CreateSchoolAdmin" className='CreateSchool'>Add School</Link>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key="4" icon={<LogoutOutlined />} >
-              <Link to="../admin">Logout</Link>
+              <Link to="../../Login">Logout</Link>
             </Menu.Item>
           </Menu>
       </Sider>

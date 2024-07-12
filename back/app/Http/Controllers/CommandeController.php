@@ -7,27 +7,14 @@ use Illuminate\Http\Request;
 use App\Models\Commande;
 
 class CommandeController extends Controller
-{   
+{
 
 
     public function CreateCommande(Request $request)
     {
-        $request->validate([
-            'service_date' => 'required|date',
-            'total_price' => 'required|numeric',
-            'status' => 'required|in:pending,in progress,completed',
-            'client_id' => 'required|exists:clients,id',
-            'artisan_id' => 'required|exists:artisans,id',
-            'artisan_service_id' => 'required|exists:service_artisan,id',
-        ]);
-
         $commande = new Commande();
-        $commande->service_date = $request->input('service_date');
-        $commande->total_price = $request->input('total_price');
-        $commande->status = $request->input('status');
         $commande->client_id = $request->input('client_id');
         $commande->artisan_id = $request->input('artisan_id');
-        $commande->artisan_service_id = $request->input('artisan_service_id');
         $commande->save();
         return response()->json([
             'commande' => $commande,

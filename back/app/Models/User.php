@@ -2,18 +2,20 @@
 
 namespace App\Models;
 
+
+use Carbon\Carbon;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Carbon\Carbon;
-use Laravel\Sanctum\HasApiTokens;
-
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 // use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use  HasApiTokens, HasFactory, Notifiable;
+    use  Notifiable;
 
     protected $fillable = [
         'name',

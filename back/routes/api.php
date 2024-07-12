@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
     
+Route::post('login', [AuthController::class, 'login']);
 
 
 Route::post('Create_Admin', [UserController::class, 'Create_Admin']); // It works
@@ -44,6 +45,8 @@ Route::post('create_client',[ClientController::class,'create_client']); //it wor
 Route::get('getClientByUserId/{user_id}',[ClientController::class,'getClientByUserId']); //it works
 Route::get('getClientById/{id}',[ClientController::class,'getClientById']);//it works
 Route::get('getAllClients',[ClientController::class,'getAllClients']);//it works
+Route::get('getAllClientsInfos',[ClientController::class,'getAllClientsInfos']);//it works
+
 
 
 

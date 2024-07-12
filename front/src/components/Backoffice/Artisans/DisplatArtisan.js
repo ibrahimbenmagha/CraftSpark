@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Space, Table, Button, Modal, message } from "antd";
 import axiosInstance from "../../../AxiosConfig";
+import {setRolrIdInLocalStorage,getRole,getId} from "./../../../localStorageUtils";
+
+// import 
 import "./Artisan.css";
 
 const { Column } = Table;
@@ -31,6 +34,7 @@ const Artisan = () => {
       console.error("Erreur lors de la récupération des données :", error);
     }
   };
+  const tst = getId();
 
   const handleDelete = (id) => {
     confirm({

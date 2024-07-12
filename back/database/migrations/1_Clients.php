@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->references("id")->on("users");
             $table->string('phone');
             $table->string('address');
+            $table->longText('photo')->nullable();
             $table->timestamps();
         });
     }

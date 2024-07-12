@@ -1,10 +1,10 @@
 .create-client-container{
-  max-width: 100%;
+  width: 100%;
   background-color: #e6e5e0;
 }
 
 .create-account-container {
-    max-width: 85%;
+    width: 55%;
     margin: 0 auto;
     padding: 20px;
     background-color: #1E1E1E;
@@ -13,9 +13,12 @@
 -webkit-box-shadow: 10px 10px 5px 1px rgba(0,0,0,0.19);
 -moz-box-shadow: 10px 10px 5px 1px rgba(0,0,0,0.19);
   }
+
+
   
   .form-title{
     color: #ecb12d;
+    text-align: center;
   }
 
   .logo {
@@ -111,4 +114,8 @@
   .message.error {
     color: red;
   }
-  
+  .login-link {
+    color: #ccc;
+    margin-top: 20px;
+    text-align: center;
+  }
