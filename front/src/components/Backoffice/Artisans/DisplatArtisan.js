@@ -3,6 +3,7 @@ import { Space, Table, Button, Modal, message } from "antd";
 import axiosInstance from "../../../AxiosConfig";
 import {setRolrIdInLocalStorage,getRole,getId} from "./../../../localStorageUtils";
 
+import Popover from "./../Popover.js";
 // import 
 import "./Artisan.css";
 
@@ -64,6 +65,8 @@ const Artisan = () => {
   return (
     <div className="123">
       <h1>Liste des Artisans</h1>
+      {/* <span className="popover"><Popover className="popover2"/></span> */}
+    
       <Table dataSource={data} rowKey="id">
         <Column title="Photo" dataIndex="artisan_photo" key="artisan_photo" align="center"render={(image) => image}/>
         <Column title="Nom" dataIndex="user_name" key="user_name" align="center" />

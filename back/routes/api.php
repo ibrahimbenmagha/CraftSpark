@@ -69,11 +69,6 @@ Route::get('getServiceById/{id}', [ServiceController::class, 'getServiceById']);
 
 
 
-// Route::post('createServiceArtisan', [ServceArtisanController::class, 'createServiceArtisan']);
-// Route::get('getAllServceArtisan', [ServceArtisanController::class, 'getAllServceArtisan']);
-// Route::get('getServceArtisanById/{id}', [ServceArtisanController::class, 'getServceArtisanById']);
-// Route::get('getServceArtisanByArtisanId/{artisan_id}', [ServceArtisanController::class, 'getServceArtisanByArtisanId']);
-
 
 Route::post('CreateCommande', [CommandeController::class, 'CreateCommande']);
 Route::get('GetAllCommandes', [CommandeController::class, 'GetAllCommandes']);

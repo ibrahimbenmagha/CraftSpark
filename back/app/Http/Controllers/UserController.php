@@ -103,6 +103,6 @@ use Illuminate\Support\Facades\Hash;
 
         return response()->json(['message' => 'User and associated records deleted successfully'], 200);
     }
-  
+
 
 }

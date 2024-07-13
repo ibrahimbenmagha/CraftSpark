@@ -1,0 +1,10 @@
+.popover{
+    display: flex;
+    /* width: 100%; */
+    width: 150px;
+
+    /* flex-direction: column-reverse; */
+}
+.popover2{
+    width: 150px;
+}
