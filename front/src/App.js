@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { getRole, getId } from "./localStorageUtils.js";
+
 import LoginForm from "./components/Login/LoginForm";
 import AllArtisansPage from "./components/AllArtisansPage/AllArtisansPage.js"
 
@@ -18,6 +19,8 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+        <Route path="" element={<LanfingPage/>}/>
         <Route path="Login" element={<LoginForm />} />
         <Route path="CreateClient" element={<CreateClient />} />
         <Route path="CreateArtisan" element={<CreateArtisan />} />
