@@ -39,7 +39,7 @@ function App() {
             <h2>POUR VOS PROBLÈMES ?</h2>
             <p className="sous-titre1">Nous sommes là pour vous!</p>
             <span className="buttons1">
-              <button className="create-account-button1">Créer Un Compte</button>
+             <button className="create-account-button1">Créer Un Compte</button>
               <strong>
                 <button className="account-button1">Connexion</button>
               </strong>

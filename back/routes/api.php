@@ -55,6 +55,8 @@ Route::post('create_artisan',[ArtisanController::class,'create_artisan']); //it 
 Route::get('getAllArtisans',[ArtisanController::class,'getAllArtisans']);
 Route::get('getAllArtisansInfo',[ArtisanController::class,'getAllArtisansInfo']);
 Route::get('getArtisansWithAllInfos',[ArtisanController::class,'getArtisansWithAllInfos']);
+Route::get('getArtisansWithAllInfosById/{id}',[ArtisanController::class,'getArtisansWithAllInfosById']);
+
 
 Route::get('getArtisanById/{id}',[ArtisanController::class,'getArtisanById']);
 Route::get('getArtisanByUserId/{userId}',[ArtisanController::class,'getArtisanByUserId']);

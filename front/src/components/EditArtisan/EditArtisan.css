@@ -1,0 +1,117 @@
+.create-client-container{
+  max-width: 100%;
+  background-color: #e6e5e0;
+}
+
+.create-account-container {
+    max-width: 85%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1E1E1E;
+    border-radius: 8px;
+    box-shadow: 10px 10px 5px 1px rgba(0,0,0,0.19);
+-webkit-box-shadow: 10px 10px 5px 1px rgba(0,0,0,0.19);
+-moz-box-shadow: 10px 10px 5px 1px rgba(0,0,0,0.19);
+  }
+  
+  .form-title{
+    color: #ecb12d;
+  }
+
+  .logo {
+    max-width: 250px;
+    max-height: auto;
+    margin-left: 10px;
+    margin-top: 5px;
+  }
+  
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .create-account-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+    margin-right: 10px;
+  }
+
+  .form-group:focus-within label {
+    color: #FFDE2F ;
+  }
+ 
+  .label {
+    display: block;
+    margin-bottom: 5px;
+    color: rgb(75, 75, 75);
+  }
+  .textarea,
+  .input[type="file"],
+  .input[type="text"],
+  .input[type="number"],
+  .select,
+  .input[type="date"],
+  .input[type="tel"],
+  .input[type="email"],
+  .input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: grey;
+  }
+  
+  button {
+    padding: 10px 15px;
+    color: #ecb12d;
+    background-color: #1E1E1E;
+    border: 1px solid #FFDE2F;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+  
+  button:hover {
+    background-color: #ecb12d;
+    color: #1E1E1E;
+  }
+  
+  input:focus {
+    border-color: #FFDE2F;
+    outline: none;
+  }
+  .error{
+    color: red;
+  }
+  .loader {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .message {
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .message.success {
+    color: green;
+  }
+  
+  .message.error {
+    color: red;
+  }
+  

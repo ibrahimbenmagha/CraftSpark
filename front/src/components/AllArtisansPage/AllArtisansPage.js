@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { faSearch, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faUser, faHeart } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
 import "./AllArtisansPage.css";
 
-import logo from "./../../Photos/Logo1.png";
 import axiosInstance from "../../AxiosConfig";
+import logo from "./../../Photos/Logo1.png";
 import ServiceCard from "./ServiceCard";
 
 const AllArtisansPage = () => {
@@ -101,7 +100,7 @@ const AllArtisansPage = () => {
   });
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading spinner
+    return <div className="loader">Loading...</div>; // Show loading spinner
   }
 
   if (error) {

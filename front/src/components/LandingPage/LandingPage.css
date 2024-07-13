@@ -29,7 +29,15 @@
   align-items: flex-end;
   gap: 5px;
 }
-
+.create-account-button2 {
+  background-color: #FFDE2F;
+  color: #1E1E1E;
+  border: none;
+  /* padding: 10px 20px; */
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: bold;
+}
 .create-account-button1 {
   background-color: #FFDE2F;
   color: #1E1E1E;

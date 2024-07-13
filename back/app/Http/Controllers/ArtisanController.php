@@ -282,4 +282,108 @@ class ArtisanController extends Controller
             return response()->json(['message' => 'Erreur lors de la suppression de l\'artisan et de l\'utilisateur associé', 'error' => $e->getMessage()], 500);
         }
     }
+
+    public function getArtisansWithAllInfosById($id)
+    {
+        try {
+            $artisans = Artisan::leftJoin('artisan_ratings', 'artisans.id', '=', 'artisan_ratings.artisan_id')
+                ->join('users', 'artisans.user_id', '=' ,'users.id')
+                ->join('services', 'artisans.service', '=', 'services.id')
+                ->select(
+                    'artisans.id',
+                    'artisans.user_id',
+                    'artisans.phone',
+                    'artisans.Annes_experiances',
+                    'artisans.photo as artisan_photo',
+                    'artisans.description',
+                    'artisans.address',
+                    'users.name as user_name',
+                    'users.email as user_email',
+                    'users.date_naissance as user_date_naissance',
+                    'services.id as service_id',
+                    'services.name as service_name',
+                    DB::raw('AVG(artisan_ratings.rating) as average_rating')
+                )
+                ->where('artisans.user_id', '=', $id)
+                ->groupBy(
+                    'artisans.id',
+                    'artisans.user_id',
+                    'artisans.phone',
+                    'artisans.Annes_experiances',
+                    'artisans.photo',
+                    'artisans.description',
+                    'artisans.address',
+                    'users.name',
+                    'users.email',
+                    'users.date_naissance',
+                    'services.name',
+                    'services.id'
+                )
+                ->get();
+
+            return response()->json([
+                'message' => 'Artisans retrieved successfully',
+                'artisans' => $artisans
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Failed to retrieve artisans',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+
+    public function update_artisan(Request $request, $id)
+{
+    DB::beginTransaction();
+
+    try {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'date_naissance' => 'required|date',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'service' => 'required|integer|exists:services,id',
+            'Annes_experiances' => 'required|integer|min:0',
+            'description' => 'nullable|string',
+            'image' => 'nullable|file|mimes:jpg,png|max:2048'
+        ]);
+
+        $user = User::findOrFail($id);
+        $artisan = Artisan::where('user_id', $user->id)->firstOrFail();
+
+        $user->name = $request->name;
+        $user->date_naissance = $request->date_naissance;
+        $user->save();
+
+        $artisan->phone = $request->phone;
+        $artisan->address = $request->address;
+        $artisan->service = $request->service;
+        $artisan->Annes_experiances = $request->Annes_experiances;
+        $artisan->description = $request->description;
+
+        // Update image if provided
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $artisan->photo = base64_encode(file_get_contents($image->getRealPath()));
+        }
+
+        $artisan->save();
+
+        DB::commit();
+        return response()->json([
+            'message' => 'Artisan updated successfully',
+            'artisan' => $artisan
+        ], 200);
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return response()->json([
+            'message' => 'Failed to update artisan',
+            'error' => $e->getMessage()
+        ], 500);
+    }
+}
+
+
 }

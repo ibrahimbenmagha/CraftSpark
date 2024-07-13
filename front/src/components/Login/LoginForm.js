@@ -1,8 +1,8 @@
 import { message } from "antd";
-import React, { useState,useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import {setRolrIdInLocalStorage,getRole,getId,clearLocalStorage} from "./../../localStorageUtils"
+import { clearLocalStorage, getId, setRolrIdInLocalStorage } from "./../../localStorageUtils";
 
 import Logo from "../../Photos/Logo.png";
 import axiosInstance from './../../AxiosConfig';
@@ -35,9 +35,15 @@ const LoginForm = () => {
       if (role === 'admin') {
         message.success("Logged in successfully");
         navigate('/backoffice');
-      } else {
+      } else
+      if(role === 'client') {
         message.success("Logged in successfully");
-        navigate('/'); 
+        navigate('/Client/AllArtisansPage'); 
+      }else{
+        if(role === 'artisan') {
+          message.success("Logged in successfully");
+          navigate('/Artisan/EditArtisan'); 
+        }
       }
     } catch (error) {
       message.error("Invalid credentials");
